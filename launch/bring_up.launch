@@ -1,0 +1,28 @@
+<launch>
+	// Kobuki USB connect
+	<include file="$(find kobuki_node)/launch/minimal.launch" />
+
+	// LRS TF base_footprint -> base_scan broadcast
+	<node pkg="tf" type="static_transform_publisher" name="base_scan_tf_publisher" args="0.0 0.0 0.4 0.0 0.0 0.0 /base_footprint /base_scan 100"/>	
+
+	// urg_node launch
+	<node pkg="urg_node" type="urg_node" name="urg_node">
+		<param name="ip_address" value="192.168.1.75" />
+		<param name="frame_id" value="/base_scan" />
+	</node>
+
+	// Joystick
+  	<arg name="joy_dev" default="/dev/input/js0" />
+		<node pkg="joy" type="joy_node" name="joy_node">
+		<param name="dev" value="$(arg joy_dev)" />
+		<param name="autorepeat_rate" value="5" />
+		</node>
+  	<node pkg="printeps-kobuki-modules" name="teleop_twist_joy" type="teleop_twist_joy.py" >
+		<param name="max_speed"	value="2.0" />
+		<param name="max_turn"	value="2.0" />
+  	</node>
+
+	// rviz
+	<!-- node pkg="rviz" type="rviz" name="rviz" args="-d $(find my_kobuki)/rviz/kobuki_rviz.rviz" / -->
+
+</launch>
