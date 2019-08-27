@@ -18,7 +18,7 @@
 		<param name="autorepeat_rate" value="5" />
 		</node>
   	<node pkg="printeps-kobuki-modules" name="teleop_twist_joy" type="teleop_twist_joy.py" >
-		<param name="max_speed"	value="2.0" />
+		<param name="max_speed"	value="0.8" />
 		<param name="max_turn"	value="2.0" />
   	</node>
 

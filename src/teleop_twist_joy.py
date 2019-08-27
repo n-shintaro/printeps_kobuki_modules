@@ -9,7 +9,7 @@ class JoyTwist(object):
     def __init__(self):
         self._joy_sub   = rospy.Subscriber('joy', Joy, self.joy_callback, queue_size=1)
         self._twist_pub = rospy.Publisher('/mobile_base/commands/velocity', Twist, queue_size=2)
-        self.max_speed  = rospy.get_param('~max_speed', 3.0)
+        self.max_speed  = rospy.get_param('~max_speed', 0.8)
         self.max_turn   = rospy.get_param('~max_turn', 2.0)
         self.release=True
     def joy_callback(self, joy_msg):
